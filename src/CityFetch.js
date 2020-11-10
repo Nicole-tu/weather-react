@@ -13,7 +13,7 @@ class CitySelect extends Component {
       })
       return
     }
-    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${this.state.inputValue}&key=${this.props.apiKey}`)
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${this.state.inputValue}&key=${this.props.apiKey}&language=native`)
       .then(res => res.json())
       .then(data => {
         this.props.setLocation({

@@ -55,18 +55,18 @@ class WeatherFetch extends Component {
             <h3>Search city first</h3>
             :
             <div className="mx-auto max-w-full rounded overflow-hidden shadow-lg md:px-20 sm:py-6 md:py-8 sm:px-8 bg-indigo-100">
-              <div className="flex">
-                <div className="w-1/5">
-                  <h1 className="mb-5">{flag} {city}</h1>
+              <div className="sm:flex">
+                <div className="sm:w-1/2 lg:w-1/5">
+                  <h2 className="mb-5">{flag} {city}</h2>
                   <h3>{mainTemp} &#8451;</h3>
                   <h3>Feels Like {feels_like} &#8451;</h3>
                   <p>{description}</p>
                 </div>
-                <div className="w-1/5">
+                <div className="sm:w-1/2 lg:w-1/5">
                   <img className="inline object-center" alt={description} src={`http://openweathermap.org/img/wn/${iconID}@2x.png`} />
                   <h3>{main}</h3>
                 </div>
-                <div className="w-3/5 flex items-end justify-end align-bottom">
+                <div className="lg:w-3/5 flex items-end justify-end align-bottom">
                   <div>
                     <span className="text-gray-500" onClick={this.toggleForecast}>
                       {showForecast
@@ -87,13 +87,17 @@ class WeatherFetch extends Component {
                 ? null
                 :
                 <div className="mt-8">
-                  <ul className="inline-grid grid-cols-7 gap-x-3">
+                  <ul className="inline-grid sm:gap-y-3 md:grid-cols-7 md:gap-x-1 lg:gap-x-3">
                     {weekly && weekly.map((item, index) => {
-                      return <li key={index}>
-                        {this.formatDate(item.dt)}<br />
-                        <img className="inline object-center" alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} />
-                        <h3>{item.weather[0].main}</h3>
-                        {item.temp.day} &#8451;<br />Feels like {item.feels_like.day} &#8451;<br />
+                      return <li key={index}
+                      >
+                        <div className="sm:flex sm:items-center md:block md:text-xs lg:text-base">
+                          <p>{this.formatDate(item.dt)}</p>
+                          <img className="inline object-center" alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} />
+                          <p>{item.weather[0].main}</p>
+                          <p>{item.temp.day} &#8451;</p>
+                          <p className="sm:ml-3 sm:text-base md:text-sm lg:text-sm xl:text-base">Feels like {item.feels_like.day} &#8451;</p>
+                        </div>
                       </li>
                     })}
                   </ul>
