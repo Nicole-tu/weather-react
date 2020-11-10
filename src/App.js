@@ -6,7 +6,7 @@ import { useI18n } from './i18n'
 const WEATHER_APP_Key = '5a41d35c009c3bb73c52b6817d03b311';
 const CITY_APP_KEY = '6b13d976714f488792b849709ed745b8';
 const App = () => {
-  const { t, setLocale } = useI18n();
+  const { t, getLocale, setLocale } = useI18n();
   const [cityName, setCityName] = useState('');
   const [coord, setCoord] = useState([]);
   const [flag, setFlag] = useState('');
@@ -20,8 +20,9 @@ const App = () => {
   return (
     <div className="container px-8 mx-auto text-center items-center">
       <div className="text-right">
-        <span className={`no-underline hover:underline text-blue-500`} onClick={() => setLocale('en')}>English</span>&nbsp;|&nbsp;
-          <span href="#" className={`no-underline hover:underline text-blue-500`} onClick={() => setLocale('zh-TW')}>中文</span>
+        <span href="#" className={`no-underline ${getLocale() === 'zh-TW' ? 'text-blue-800' : 'text-blue-500 hover:underline cursor-pointer'}`} onClick={() => setLocale('zh-TW')}>中文</span>
+        &nbsp;|&nbsp;
+        <span className={`no-underline ${getLocale() === 'en' ? 'text-blue-800' : 'text-blue-500 hover:underline cursor-pointer'}`} onClick={() => setLocale('en')}>English</span>
       </div>
       <div className="py-12">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">

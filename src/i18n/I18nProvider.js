@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import I18nContext from './I18nContext';
 
 const I18nProvider = (props) => {
-  const [locale, setLocale] = useState('en');
+  const [locale, setLocale] = useState('zh-TW');
 
   const i18n = {
     t: key => props.translations[locale][key],
