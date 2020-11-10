@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useI18n } from './i18n'
 
 const WeatherFetch = (props) => {
-  const { t } = useI18n();
+  const { t, getLocale } = useI18n();
   const [showForecast, setShowForecast] = useState(false);
   const [feelsLike, setFeelsLike] = useState('');
   const [mainTemp, setMainTemp] = useState('');
@@ -17,7 +17,8 @@ const WeatherFetch = (props) => {
   }, [props]);
 
   const fetchWeather = async (props) => {
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${props.coord.lat}&lon=${props.coord.lng}&appid=${props.apiKey}&units=metric`)
+    let lang = getLocale() === 'zh-TW' ? 'zh_tw' : 'en';
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${props.coord.lat}&lon=${props.coord.lng}&appid=${props.apiKey}&units=metric&lang=${lang}`)
       .then(res => res.json())
       .then(data => {
         setFeelsLike(data.current.feels_like);
@@ -46,22 +47,20 @@ const WeatherFetch = (props) => {
     <>
       {
         (props.city.length === 0) ?
-
-          <h3>{t('search_city_first')}</h3>
+          <h3 className="text-gray-100">{t('search_city_first')}</h3>
           :
-          <div className="mx-auto max-w-full rounded overflow-hidden shadow-lg md:px-20 sm:py-6 md:py-8 sm:px-8 bg-indigo-100">
+          <div className="mx-auto max-w-full rounded overflow-hidden shadow-lg md:px-20 sm:py-6 md:py-8 sm:px-8 bg-indigo-200">
             <div className="sm:flex">
-              <div className="sm:w-1/2 lg:w-1/5">
-                <h2 className="mb-5">{props.flag}&nbsp;{props.city}</h2>
-                <h3>{mainTemp} &#8451;</h3>
+              <div className="sm:w-1/2 lg:w-2/5">
+                <h2 className="mt-6 mb-5">{props.flag}&nbsp;{props.city}</h2>
+                <h3 >{mainTemp} &#8451;</h3>
                 <h3>{t('feels_like')}&nbsp;{feelsLike}&nbsp;&#8451;</h3>
-                <p>{description}</p>
               </div>
-              <div className="sm:w-1/2 lg:w-1/5">
-                <img className="inline object-center" alt={description} src={`http://openweathermap.org/img/wn/${iconID}@2x.png`} />
-                <h3>{main}</h3>
+              <div className="sm:w-1/2 lg:w-2/5">
+                <img className="inline object-center" width="40" alt={main} src={`http://openweathermap.org/img/wn/${iconID}@2x.png`} />
+                <h3>{description}</h3>
               </div>
-              <div className="lg:w-3/5 flex items-end justify-end align-bottom">
+              <div className="lg:w-1/5 flex items-end justify-end align-bottom">
                 <div>
                   <span className="text-gray-500" onClick={toggleForecast}>
                     {showForecast
@@ -88,8 +87,8 @@ const WeatherFetch = (props) => {
                     >
                       <div className="sm:flex sm:items-center md:block md:text-xs lg:text-base">
                         <p>{formatDate(item.dt)}</p>
-                        <img className="inline object-center" alt={item.weather[0].description} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} />
-                        <p>{item.weather[0].main}</p>
+                        <img className="inline object-center" alt={item.weather[0].main} src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} />
+                        <p>{item.weather[0].description}</p>
                         <p>{item.temp.day} &#8451;</p>
                         <p className="sm:ml-3 sm:text-base md:text-sm lg:text-sm xl:text-base">{t('feels_like')}&nbsp;{item.feels_like.day}&nbsp;&#8451;</p>
                       </div>

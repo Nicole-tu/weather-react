@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import { useI18n } from './i18n'
 
 const CitySelect = (props) => {
-  const { t } = useI18n();
+  const { t, getLocale } = useI18n();
   const [inputValue, setInputValue] = useState('');
 
   const search = () => {
     if (inputValue.length === 0) {
       return
     }
-    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${inputValue}&key=${props.apiKey}&language=native`)
+    let lang = getLocale() === 'en' ? 'en' : 'native';
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${inputValue}&key=${props.apiKey}&language=${lang}`)
       .then(res => res.json())
       .then(data => {
         props.setLocation({

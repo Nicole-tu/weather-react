@@ -20,14 +20,14 @@ const App = () => {
   return (
     <div className="container px-8 mx-auto text-center items-center">
       <div className="text-right">
-        <span href="#" className={`no-underline ${getLocale() === 'zh-TW' ? 'text-blue-800' : 'text-blue-500 hover:underline cursor-pointer'}`} onClick={() => setLocale('zh-TW')}>中文</span>
-        &nbsp;|&nbsp;
-        <span className={`no-underline ${getLocale() === 'en' ? 'text-blue-800' : 'text-blue-500 hover:underline cursor-pointer'}`} onClick={() => setLocale('en')}>English</span>
+        <span href="#" className={`no-underline ${getLocale() === 'zh-TW' ? 'text-gray-100' : 'text-blue-500 hover:underline cursor-pointer'}`} onClick={() => setLocale('zh-TW')}>中文</span>
+        <span className="text-gray-300">&nbsp;|&nbsp;</span>
+        <span className={`no-underline ${getLocale() === 'en' ? 'text-gray-100' : 'text-blue-500 hover:underline cursor-pointer'}`} onClick={() => setLocale('en')}>English</span>
       </div>
       <div className="py-12">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="">
-            <h1 className="mt-2 leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 uppercase ">
+            <h1 className="mt-2 leading-8 font-extrabold tracking-tight text-white sm:text-4xl sm:leading-10 uppercase ">
               {t('system_header')}</h1>
             <p className="mt-4 max-w-2xl text-xl leading-7 text-gray-500 lg:mx-auto" dangerouslySetInnerHTML={{ __html: t('system_description') }} />
           </div>
